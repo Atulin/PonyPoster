@@ -10,7 +10,7 @@ export default {
     ctx.waitUntil(RariJackHandler(env));
   },
 
-  async fetch() {
+  async fetch(request: Request, env: Env) {
     return new Response("Working in CRON mode!");
   }
 };

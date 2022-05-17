@@ -1,4 +1,4 @@
-import { Http } from "@angius/http";
+import { Http, Getters, Method } from "@angius/http";
 import { json } from "../helpers/Response";
 import { UrlBuilder } from "../helpers/UrlBuilder";
 import { Env } from "../types/Env";
@@ -28,10 +28,10 @@ export const RariJackHandler = async (
       .filter((t) => t.startsWith("artist"))
       .map((a) => a.split(":").reverse()[0]);
 
-    const whResponse = await Http.request<void>(
-      env.DISCORD_WEBHOOK,
-      "POST",
-      {
+    const whResponse = await Http.request<void>({
+      url: env.DISCORD_WEBHOOK,
+      method: Method.post,
+      payload: {
         username: "RariJack",
         avatar_url: image.representations.thumbTiny,
         embeds: [
@@ -48,10 +48,8 @@ export const RariJackHandler = async (
           },
         ],
       },
-      {},
-      {},
-      (r: Response) => Promise.resolve({})
-    );
+      dataGetter: Getters.voidGetter
+  });
 
     if (whResponse.isSuccess) {
       return json(data);

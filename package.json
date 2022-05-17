@@ -12,6 +12,6 @@
         "publish": "wrangler publish"
     },
     "dependencies": {
-        "@angius/http": "^1.1.1"
+        "@angius/http": "^2.0.1"
     }
 }
