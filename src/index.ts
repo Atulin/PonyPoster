@@ -2,16 +2,15 @@ import { RariJackHandler } from "./handlers/RariJackHandler";
 import { Env } from "./types/Env";
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-
-    const url = new URL(request.url);
-    const path = url.pathname;
-
-    switch (path) {
-      case "/rarijack":
-        return await RariJackHandler(request, env);
-      default:
-        return new Response();
-    }
+  async scheduled(
+    event: ScheduledEvent,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<void> {
+    ctx.waitUntil(RariJackHandler(env));
   },
+
+  async fetch() {
+    return new Response("Working in CRON mode!");
+  }
 };

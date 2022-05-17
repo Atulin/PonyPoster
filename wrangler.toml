@@ -2,5 +2,8 @@ name = "ponyposter"
 main = "src/index.ts"
 compatibility_date = "2022-05-17"
 
+[triggers]
+crons = ["0 */4 * * *"]
+
 # [secrets]
 # DEPIBOORU_KEY

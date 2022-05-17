@@ -6,7 +6,6 @@ import { version } from "../../package.json";
 import { DerpiResult } from "../types/Derpi";
 
 export const RariJackHandler = async (
-  request: Request,
   env: Env
 ): Promise<Response> => {
   const url = new UrlBuilder("https://derpibooru.org/api/v1/json/search/images")
@@ -55,11 +54,7 @@ export const RariJackHandler = async (
     );
 
     if (whResponse.isSuccess) {
-      const response = new URL(request.url).searchParams.has("v")
-        ? { data }
-        : { message: "Success!" };
-
-      return json(response);
+      return json(data);
     } else {
       return new Response(`Error: ${res.error}`, { status: 500 });
     }
